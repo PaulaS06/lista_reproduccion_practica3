@@ -181,4 +181,10 @@ class AudioPlayer():
             current = current.next
 
         return f"🔀 Reproduciendo aleatoriamente: {random_title}"
+    
+    def generate_subplaylist(self):
+        pass
+
+    def advance_song(self):
+        pass
 
