@@ -35,10 +35,13 @@ while True:
         title, artist, duration = pedir_datos()
         song = Song(title, artist, duration)
         player.playlist.add_song(song)
-        print(f"Se ha añadido la canción: {song} de {song.artist} a la playlist")
+        print(f"Se ha añadido la canción: {song} de {song.artist} a la playlist exitosamente")
     elif opcion == "2": ## REVISAR
         print(player.play())
-        player.simulate_playback()
+        messages = player.simulate_playback()
+        for msg in messages:
+            print(msg)
+
     elif opcion == "3":
         print(player.next_song())
     elif opcion == "4":
@@ -46,14 +49,16 @@ while True:
     elif opcion == "5":
         title = input("Introduce el título de la canción a eliminar: ")
         player.playlist.remove_song(title)
-        print(f"Se ha eliminado la canción: {title} de la playlist")
+        print(f"Se ha eliminado la canción: {title} de la playlist exitosamente")
     elif opcion == "6":
         print(player.show_current_song())
     elif opcion == "7":
         print(player.show_playlist())
-
     elif opcion == "8":
-        ...
+        print("Activando modo aleatorio...")
+        print(player.shuffle())
+        print("Modo aleatorio activado")
+
     elif opcion == "9":
         ...
     elif opcion == "10":

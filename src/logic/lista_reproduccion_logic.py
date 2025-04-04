@@ -1,4 +1,5 @@
 import time
+import random
 import sys
 
 sys.path.append("src")
@@ -116,15 +117,16 @@ class AudioPlayer():
 
         if self.current is None:
             self.current = self.playlist.get_head()
-            return f"Reproduciendo: {self.current.song}"
+        return f"Reproduciendo: {self.current.song} de {self.current.song.artist}"
 
     def simulate_playback(self):
         if self.current:
-            print(f"🎧 Sonando: {self.current.song}")
-            time.sleep(self.current.song.duration)
-            print("🎶 Canción finalizada.")
+            message_start = f"🎧 Sonando: {self.current.song.title} de {self.current.song.artist}"
+            time.sleep(self.current.song.duration)  
+            message_end = "🎶 Canción finalizada."
+            return (message_start, message_end)
         else:
-            print("⛔ No hay canción seleccionada para reproducir.")
+            return ("⛔ No hay canción seleccionada para reproducir.",)
 
     def next_song(self):
         if (self.playlist.get_size() == 0):
@@ -156,4 +158,27 @@ class AudioPlayer():
         if (self.playlist.get_size() == 0):
             return f"La playlist está vacía"
         return str(self.playlist)
+
+    def shuffle(self):
+        if self.playlist.get_size() == 0:
+            raise EmptyPlaylistError("La playlist está vacía")
+
+        songs = []
+        current = self.playlist.get_head()
+        for _ in range(self.playlist.get_size()):
+            songs.append(current.song.title)
+            current = current.next
+
+        print(songs)
+        random_title = random.choice(songs)
+
+        current = self.playlist.get_head()
+
+        for _ in range(self.playlist.get_size()):
+            if current.song.title == random_title:
+                self.current = current
+                break
+            current = current.next
+
+        return f"🔀 Reproduciendo aleatoriamente: {random_title}"
 
